@@ -11,7 +11,8 @@ export const constantRouter = [
         meta: {
             title: '登录',
             hidden: true, //代表标题在菜单中是否隐藏  ，true：隐藏，false：不隐藏
-            icon: 'Promotion'
+            icon: 'Promotion',
+            needLogin:false
         }
     },
     // 首页组件
@@ -23,6 +24,7 @@ export const constantRouter = [
             title: 'layout',
             hidden: false, //代表标题在菜单中是否隐藏  ，false：隐藏，false：不隐藏
             icon: 'HomeFilled',
+            needLogin:true
         },
         redirect: '/home',
         children: [
@@ -33,6 +35,7 @@ export const constantRouter = [
                     title: '首页',
                     hidden: false, //代表标题在菜单中是否隐藏  ，false：隐藏，false：不隐藏
                     icon: 'HomeFilled',
+                    needLogin:true
                 }
             },
         ]
@@ -44,7 +47,8 @@ export const constantRouter = [
         meta: {
             title: "数据大屏",
             hidden: false,
-            icon: 'Tools'
+            icon: 'Tools',
+            needLogin:true
         }
     },
     // 权限管理
@@ -55,7 +59,8 @@ export const constantRouter = [
         meta: {
             title: "权限管理",
             hidden: false,
-            icon: 'Lock'
+            icon: 'Lock',
+            needLogin:true
         },
         children: [
             {
@@ -65,7 +70,8 @@ export const constantRouter = [
                 meta: {
                     title: "用户管理",
                     hidden: false,
-                    icon: 'User'
+                    icon: 'User',
+                    needLogin:true
                 },
             },
             {
@@ -75,7 +81,8 @@ export const constantRouter = [
                 meta: {
                     title: "角色管理",
                     hidden: false,
-                    icon: 'UserFilled'
+                    icon: 'UserFilled',
+                    needLogin:true
                 },
             },
             {
@@ -85,7 +92,8 @@ export const constantRouter = [
                 meta: {
                     title: "菜单管理",
                     hidden: false,
-                    icon: 'Grid'
+                    icon: 'Grid',
+                    needLogin:true
                 },
             }
         ]
@@ -98,7 +106,8 @@ export const constantRouter = [
         meta: {
             title: "商品管理",
             hidden: false,
-            icon: 'CollectionTag'
+            icon: 'CollectionTag',
+            needLogin:true
         },
         children: [
             {
@@ -108,7 +117,8 @@ export const constantRouter = [
                 meta: {
                     title: "品牌管理",
                     hidden: false,
-                    icon: 'ShoppingCart'
+                    icon: 'ShoppingCart',
+                    needLogin:true
                 },
             },
             {
@@ -118,7 +128,8 @@ export const constantRouter = [
                 meta: {
                     title: "属性管理",
                     hidden: false,
-                    icon: 'StarFilled'
+                    icon: 'StarFilled',
+                    needLogin:true
                 },
             },
             {
@@ -128,7 +139,8 @@ export const constantRouter = [
                 meta: {
                     title: "SPU管理",
                     hidden: false,
-                    icon: 'Share'
+                    icon: 'Share',
+                    needLogin:true
                 },
             },
             {
@@ -138,7 +150,8 @@ export const constantRouter = [
                 meta: {
                     title: "SKU管理",
                     hidden: false,
-                    icon: 'TrendCharts'
+                    icon: 'TrendCharts',
+                    needLogin:true
                 },
             }
         ]
@@ -165,3 +178,4 @@ export const constantRouter = [
         }
     }
 ]
+

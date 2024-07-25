@@ -2,6 +2,6 @@
 
 export default {
     title:'馆陶黑小麦', //项目标题
-    logo:'@/assets/logo.png', //项目logo
+    logo:'/public/logo.png', //项目logo
     logoHidden:true //logo组件是否隐藏
 }

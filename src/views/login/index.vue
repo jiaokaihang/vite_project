@@ -28,13 +28,14 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import {getTime} from '../../utils/time'
+import {SET_TOKEN} from '@/utils/token'
 //获取路由器
 let $router = useRouter()
 // 引入用户相关的小仓库
 import useUserStore from '@/store/modules/user'
 let userStore = useUserStore()
 let loading = ref(false)
-let loginForm = reactive({ username: "admin", password: "123456" })
+let loginForm = reactive({ username: "admin", password: "admin123" })
 
 // 获取el-form组件
 let loginForms = ref()
@@ -61,9 +62,10 @@ async function login() {
     // 请求成功
     // 请求失败
 
-    try {
-        await userStore.userLogin(loginForm)
+    if(loginForm.username == 'admin' && loginForm.password=='admin123'){
+        SET_TOKEN('12345678')
         $router.push('/')
+        
         ElNotification({
             type: "success",
             message: "欢迎回来",
@@ -71,13 +73,20 @@ async function login() {
         })
         loading.value = false
 
-    } catch (error) {
+    }else {
         ElNotification({
             type: "error",
-            message: (error as Error).message
+            message: '账号或密码不正确'
         })
         loading.value = false
     }
+
+    // try {
+        
+       
+    // } catch (error) {
+       
+    // }
 
 }
 </script>

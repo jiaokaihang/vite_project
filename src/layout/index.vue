@@ -26,7 +26,9 @@
             </el-scrollbar>
         </div>
         <!-- 顶部导航 -->
-        <div class="layout_tabbar">顶部导航</div>
+        <div class="layout_tabbar">
+            <TopHeader/>
+        </div>
         <!-- 内容展示区 -->
         <div class="layout_main">
             <Main></Main>
@@ -45,6 +47,8 @@ import Menu from './menu/index.vue'
 import MenuTree from './menu/MenuTree.vue'
 // 引入内容区
 import Main from './main/index.vue'
+// 引入头部组件
+import TopHeader from './topHeader/TopHeader.vue';
 
 // 获取用户相关的小仓库
 let userStore = useUserStore()
@@ -100,7 +104,7 @@ const handleClose = (key, keyPath) => {
         top: 0;
         left: $base-menu-width;
         width: calc(100% - $base-menu-width);
-        height: $base-tabbar-height;
+        height: $base-topHeader-height;
         background: $base-tabbar-background;
     }
 
