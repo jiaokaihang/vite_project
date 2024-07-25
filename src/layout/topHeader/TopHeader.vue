@@ -26,16 +26,16 @@
             </div>
 
             <div style="margin-top: -10px;vertical-align: middle;margin-right:15px;">
-                <el-dropdown>
+                <el-dropdown style="margin-top: 7px;margin-right: 10px;" >
                     <el-badge value="10">
-                        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" :size="30"></el-avatar>
                     </el-badge>
 
 
                     <template #dropdown>
                         <el-dropdown-menu>
                             <el-dropdown-item @click="loginOut">{{ useStore.loginOut }}</el-dropdown-item>
-                           <el-dropdown-item>暗黑模式：<Dark/></el-dropdown-item>
+                           <el-dropdown-item>暗黑模式：<Dark></Dark></el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
                 </el-dropdown>
@@ -55,7 +55,7 @@ import {DELETE_TOKEN} from '@/utils/token'
 import { useUser } from '@/store/modules/user/user.js'
 import { storeToRefs } from 'pinia'
 import Date from '@/components/date/date.vue'
-import Drak from '@/components/dark/Dark.vue'
+import Dark from '@/components/dark/Dark.vue'
 const useStore = useUser()
 const url = ref('../../assets/user.png')
 //如果直接解构出数据，这个数据不是响应式的，如果想要变成响应式的，需要调用storeToRefs方法

@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h1>我是s首页</h1>
+      <el-card>
+         1111111111111
+      </el-card>
     </div>
 </template>
   

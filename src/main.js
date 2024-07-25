@@ -11,7 +11,8 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 // 将elementplus图标注册为全局组件
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-
+// 切换暗黑模式
+import 'element-plus/theme-chalk/dark/css-vars.css'
 // 引入路由
 import router from './router'
 
