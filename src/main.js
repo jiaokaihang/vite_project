@@ -19,9 +19,14 @@ import router from './router'
 // 引入pinnia
 import pinia from './store'
 
-//获取应用实例对象
+// import dataV from '@jiaminghi/data-view'
+// 引入antd design Vue UI
+// import Antd from 'ant-design-vue';
+// import 'ant-design-vue/dist/antd.css';
 
+//获取应用实例对象
 const app = createApp(App)
+app.config.productionTip = false;
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
   }
@@ -33,7 +38,8 @@ app.use(ElementPlus,{
 app.use(pinia)
 // 注册路由模板
 app.use(router)
-
+// app.use(Antd);
+// app.use(dataV)
 
 //讲应用挂载到挂载点
 app.mount('#app')

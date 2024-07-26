@@ -112,6 +112,7 @@ const handleClose = (key, keyPath) => {
         width: calc(100% - $base-menu-width);
         height: calc(100vh - $base-tabbar-height);
         background: #ccc;
+        // background: #fff;
         position: absolute;
         left: $base-menu-width ;
         top: $base-tabbar-height;
