@@ -31,6 +31,7 @@ export const constantRouter = [
             {
                 path: '/home',
                 component: () => import('@/views/home/index.vue'),
+                name:"Home",
                 meta: {
                     title: '首页',
                     hidden: false, //代表标题在菜单中是否隐藏  ，false：隐藏，false：不隐藏

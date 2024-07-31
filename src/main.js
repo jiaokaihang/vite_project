@@ -8,6 +8,7 @@ import './styles/index.scss'
 
 //引入语言
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import * as echarts from 'echarts'
 
 // 将elementplus图标注册为全局组件
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -31,6 +32,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
   }
 
+// 全局挂载echarts
+app.config.globalProperties.$echarts = echarts
 //配置国际化
 app.use(ElementPlus,{
     locale:zhCn

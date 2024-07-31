@@ -14,7 +14,10 @@ let useUserStore = defineStore('User', {
     state: ()=> {
         return {
             token: GET_TOKEN(),//用户的唯一标识
-            menuRouters: constantRouter //仓库存储生成菜单的数组
+            menuRouters: constantRouter, //仓库存储生成菜单的数组
+        
+           tabsList: [],
+        tabsActive: '/home'
         }
     },
     // 异步||逻辑的地方
@@ -36,7 +39,10 @@ let useUserStore = defineStore('User', {
                 return Promise.reject(new Error(result.data.message))
             }
 
-        }
+        },
+
+        // 根据侧边栏冬天生成tabs
+    
     },
     getters: {
 
