@@ -10,7 +10,7 @@
                 <!-- <Menu :menuList="userStore.menuRouters"></Menu> -->
                 <el-menu :collapse="isCollapse" active-text-color="#ffd04b" background-color="#242424"
                     class="el-menu-vertical-demo" :default-active="onRoutes" text-color="#fff" :router="true"
-                    :unique-opened="true" :collapse-transition="true"  >
+                    :unique-opened="true" :collapse-transition="true">
                     <MenuTree :menuList="userStore.menuRouters"></MenuTree>
                 </el-menu>
 
@@ -23,34 +23,24 @@
         </div>
         <!-- 内容展示区 -->
         <div class="layout_main">
- 
-    <el-tabs
-    v-model="editableTabsValue"
-    type="card"
-    class="demo-tabs"
-    closable
-    @tab-remove="removeTab"
-     @tab-click = "clickBtn"
-  >
-    <el-tab-pane
-      v-for="item in editableTabs"
-      :key="item.name"
-      :label="item.title"
-      :name="item.name"
-    >
-     <Main></Main>
-    </el-tab-pane>
-  </el-tabs>
-  <!-- <Main></Main> -->
+
+            <el-tabs v-model="editableTabsValue" type="card" class="demo-tabs" closable @tab-remove="removeTab"
+                @tab-click="clickBtn">
+                <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
+                    <Main></Main>
+                </el-tab-pane>
+            </el-tabs>
+            <!-- <Main></Main> -->
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, computed, inject,watch } from 'vue'
+import { ref, computed, inject, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
 const router = useRouter();
 const route = useRoute()
+
 import useUserStore from '../store/modules/user'
 import Logo from './logo/index.vue'
 // 引入菜单组件
@@ -86,7 +76,8 @@ const editableTabsValue = ref('Home')
 const removeTab = (targetName) => {
     const tabs = editableTabs.value;
     let activeName = editableTabsValue.value;
-    if (tabs.length === 1) { // 检查是否只剩一个标签页
+
+    if (tabs.length === 2) { // 检查是否只剩一个标签页
         activeName = 'Home'; // 设置为首页
         router.push({ name: 'Home' }); // 跳转到首页
     } else if (activeName === targetName) {
@@ -95,7 +86,7 @@ const removeTab = (targetName) => {
                 const nextTab = tabs[index + 1] || tabs[index - 1];
                 if (nextTab) {
                     activeName = nextTab.name;
-                } 
+                }
             }
         });
     }
@@ -108,6 +99,10 @@ const removeTab = (targetName) => {
 const clickBtn = (tab) => {
     router.push({ name: tab.props.name })
 }
+
+onMounted(() => { // 每次刷新之后，默认显示首页
+    router.push({ name: 'Home' });
+}); 
 
 watch(route, (newVal) => {
     const exists = editableTabs.value.some(tab => tab.name === newVal.name)
