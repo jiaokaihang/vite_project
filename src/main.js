@@ -20,7 +20,10 @@ import router from './router'
 // 引入pinnia
 import pinia from './store'
 
-// import dataV from '@jiaminghi/data-view'
+// import DataV, { setClassNamePrefix } from '@dataview/datav-vue3';
+
+import dataV from '@jiaminghi/data-view'
+// import dataV from '@jiaminghi/datav-vue3'
 // 引入antd design Vue UI
 // import Antd from 'ant-design-vue';
 // import 'ant-design-vue/dist/antd.css';
@@ -42,7 +45,9 @@ app.use(pinia)
 // 注册路由模板
 app.use(router)
 // app.use(Antd);
-// app.use(dataV)
+// 挂载datav  如果有报错，更改node_modules/@dataview/datav-vue3 package.json中的  "module": "./es/index.mjs",
+// app.use(DataV, { classNamePrefix: 'dv-' });
+app.use(dataV)
 
 //讲应用挂载到挂载点
 app.mount('#app')

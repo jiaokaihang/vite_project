@@ -2,6 +2,7 @@
 import {onMounted, ref,defineAsyncComponent} from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import BasicForm from "@/components/basicForm/BasicForm.vue";
+import {reqGetUserList} from '@/api/acl/userlist'
 // import BasicTable from "@/componts/basicTable/BasicTable.vue";
 const list = ref([
   {
@@ -40,9 +41,7 @@ const BasicTable = defineAsyncComponent(()=>{
 function query(value){
   console.log('查询数据',value)
   
-  tableData.value = tableDatas.value.filter(item => item.loginName.includes(value));
-  console.log('查询数据',tableData.value)
-  // console.log('查询数据',tableDatas.value.filter(item => console.log(item)))
+  tableData.value = tableData.value.filter(item => item.phone.includes(value));
   return tableData;
 }
 
@@ -53,102 +52,7 @@ function query(value){
  */
 const tableDatas =ref(
     [
-      {
-        id: '01',
-        loginName: 'admin',
-        userName: '段鸿运',
-        bumen: '研发部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '02',
-        loginName: 'admin',
-        userName: '张三',
-        bumen: '研发部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '03',
-        loginName: 'admin',
-        userName: '李四',
-        bumen: '研发部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '04',
-        loginName: 'admin',
-        userName: 'jack',
-        bumen: '设计部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '05',
-        loginName: 'admin',
-        userName: 'jerry',
-        bumen: '产品部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '06',
-        loginName: 'admin',
-        userName: '王五',
-        bumen: '研发部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '07',
-        loginName: 'admin',
-        userName: '李四',
-        bumen: '研发部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '08',
-        loginName: 'admin',
-        userName: '李四',
-        bumen: '研发部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '09',
-        loginName: 'admin',
-        userName: '李四',
-        bumen: '研发部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '10',
-        loginName: 'admin',
-        userName: '李四',
-        bumen: '研发部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '11',
-        loginName: 'admin',
-        userName: '李四',
-        bumen: '研发部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
-      {
-        id: '12',
-        loginName: 'admin',
-        userName: '李四',
-        bumen: '研发部门',
-        phone: '1588888888',
-        chuangjianRiqi: '2024-01-18',
-      },
+    
 
 
     ]
@@ -174,19 +78,21 @@ const controls = ref("editProcessCenter") //操作:编辑
 const MultipleSelectChoisce = ref([])
 
 const loading = ref(true)
-// onMounted(()=>{
-  setTimeout(  async ()=>{
+onMounted( async()=>{
+  
    try {
 
-     tableData.value = await tableDatas.value
+ 
+    const res = await reqGetUserList()
+     tableData.value = res.data
      loading.value = false
    }catch (e) {
      console.log(e)
    }
-    totalRows.value = tableDatas.value.length
-  },1000)
+    totalRows.value = tableData.value.length
 
-// })
+
+})
 function MultipleChoice(value) {
   MultipleSelectChoisce.value = value
   if(MultipleSelectChoisce.value.length !== 1){
@@ -293,7 +199,7 @@ function  handelPiliangDelete (){
 <template>
   <div>
     <el-card class="box-card">
-      <BasicForm :list='list' @query="query"></BasicForm>
+      <BasicForm :list='list' @query="query" :queryTableData="query"></BasicForm>
     </el-card>
 
     <el-card class="box-card" style="margin-top: 15px;height: 68vh" >

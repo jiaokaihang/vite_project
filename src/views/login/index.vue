@@ -35,7 +35,7 @@ let $router = useRouter()
 import useUserStore from '@/store/modules/user'
 let userStore = useUserStore()
 let loading = ref(false)
-let loginForm = reactive({ username: "admin", password: "admin123" })
+let loginForm = reactive({ username: "admin", password: "123456" })
 
 // 获取el-form组件
 let loginForms = ref()
@@ -58,22 +58,25 @@ async function login() {
     }
     console.log('data', data);
     // 点击登录按钮之后干什么
-    // 通知仓库发登录请求
+   
     // 请求成功
-    // 请求失败
+    // 请求失败 
 
-    if(loginForm.username == 'admin' && loginForm.password=='admin123'){
-        SET_TOKEN('12345678')
+    try {
+         // 通知仓库发登录请求
+        await userStore.userLogin(data)
+        // 登录成功
+        // 跳转到首页
         $router.push('/')
-        
+        // 提示用户
         ElNotification({
             type: "success",
             message: "欢迎回来",
             title: `Hi,${getTime()}好`
         })
         loading.value = false
-
-    }else {
+    } catch (error) {
+        // 登录失败
         ElNotification({
             type: "error",
             message: '账号或密码不正确'
@@ -81,12 +84,26 @@ async function login() {
         loading.value = false
     }
 
-    // try {
+    // if(loginForm.username == 'admin' && loginForm.password=='admin123'){
+    //     SET_TOKEN('12345678')
+    //     $router.push('/')
         
-       
-    // } catch (error) {
-       
+    //     ElNotification({
+    //         type: "success",
+    //         message: "欢迎回来",
+    //         title: `Hi,${getTime()}好`
+    //     })
+    //     loading.value = false
+
+    // }else {
+    //     ElNotification({
+    //         type: "error",
+    //         message: '账号或密码不正确'
+    //     })
+    //     loading.value = false
     // }
+
+
 
 }
 </script>

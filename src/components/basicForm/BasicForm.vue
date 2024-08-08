@@ -35,7 +35,7 @@ function onReset() {
         return obj;
     }, {});
     resetData.value = props.list.map((item) => (item.value = ""));
-    // emit("queryTableData", formData);
+    emit("queryTableData", formData);
 }
 
 function handelChange(e) {

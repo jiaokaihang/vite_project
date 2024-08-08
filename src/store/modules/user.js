@@ -8,7 +8,7 @@ import { SET_TOKEN, GET_TOKEN } from '../../utils/token'
 // 引入路由，（常量路由）
 import { constantRouter } from '@/router/routers'
 
-console.log(constantRouter);
+
 let useUserStore = defineStore('User', {
     // 数据
     state: ()=> {
@@ -25,13 +25,12 @@ let useUserStore = defineStore('User', {
         // 用户登录的方法
         async userLogin(data) {
             let result = await reqLogin(data)
-            console.log(result);
+            console.log('获取的数据',result)
             if (result.code == 200) {
-                this.token = (result.data.token)
-                console.log(this.token);
+                this.token = (result.data.user.token)
+               
                 // 本地存储持久化存储
-                // localStorage.setItem('token', (result.data.token as string))
-                SET_TOKEN((result.data.token))
+                SET_TOKEN((result.data.user.token))
                 // 能保证当前async函数返回一个成功的promise
                 return 'ok'
 
