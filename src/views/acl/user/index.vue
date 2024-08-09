@@ -66,7 +66,7 @@ const colunm = ref([
   { prop: "bumen", label: "部门" },
   { prop: "phone", label: "手机" },
   { prop: "chuangjianRiqi", label: "创建时间" },
-  { prop: "open", label: "用户状态" }
+ 
 ])
 const tableData = ref([])
 const currpage = ref(1)
@@ -199,7 +199,7 @@ function  handelPiliangDelete (){
 <template>
   <div>
     <el-card class="box-card">
-      <BasicForm :list='list' @query="query" :queryTableData="query"></BasicForm>
+      <BasicForm :list='list' @query="query" @queryTableData="query"></BasicForm>
     </el-card>
 
     <el-card class="box-card" style="margin-top: 15px;height: 68vh" >
@@ -215,7 +215,7 @@ function  handelPiliangDelete (){
           <template v-slot:default>
             <BasicTable v-loading="loading" element-loading-text="数据正在加载中..."  element-loading-background="rgba(122, 122, 122, 0.8)" :colum="colunm" :tableData="tableData" :pagesize="pagesize" :currpage="currpage" :selections="selection"
                         :totalRows="totalRows" :totalPage="totalPage" @MultipleChoice="MultipleChoice" @RadioChoice="RadioChoice" :controls="controls"
-                        @updateTalk="handelChuliEdit" @handelViewDetails="handelViewDetails" @selectTalkDelete="selectTalkDelete">
+                        @updateTalk="handelChuliEdit" @handelViewDetails="handelViewDetails" @selectTalkDelete="selectTalkDelete" :xuhao="true">
             </BasicTable>
           </template>
         </suspense>

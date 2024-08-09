@@ -1,5 +1,5 @@
-<script  setup>
-import {  ref,  onMounted, onBeforeUpdate, nextTick,computed} from 'vue'
+<script setup>
+import { ref, onMounted, onBeforeUpdate, nextTick, computed } from 'vue'
 const emit = defineEmits([  //emit是父组件向子组件传递的自定义事件
     "query",
     "queryPage",
@@ -34,6 +34,7 @@ const props = defineProps([  //props是父组件向子组件传递的数据
     "loading",
     "querySelect",
     "search",
+    'xuhao'
 ])
 
 const newPageSize = ref(0)
@@ -42,10 +43,10 @@ const newCurrpage = ref(1)
 const multipleTable = ref(null)
 
 //计算属性-计算每页的数据
-const paginationData = computed((item)=>{
-    const start = (newCurrpage.value -1) * newPageSize.value;
+const paginationData = computed((item) => {
+    const start = (newCurrpage.value - 1) * newPageSize.value;
     const end = newCurrpage.value * newPageSize.value
-    return props.tableData.slice(start,end)
+    return props.tableData.slice(start, end)
 })
 
 
@@ -133,16 +134,31 @@ function handleEditor(index, row) {
                 :cell-style="{ color: '#171717' }">
                 <el-table-column v-if="selections" type="selection" width="55">
                 </el-table-column>
-                <el-table-column type="index" width="80" label="序号">
+                <el-table-column type="index" width="80" label="序号" v-if="xuhao">
                     <template v-slot="scope">
                         <span style="color: rgba(0, 0, 0, 0.9)">{{
-                            (newCurrpage - 1) * newPageSize + scope.$index + 1
-                        }}</span>
+            (newCurrpage - 1) * newPageSize + scope.$index + 1
+        }}</span>
                     </template>
                 </el-table-column>
 
                 <el-table-column v-for="(item, index) in colum" :key="index" :prop="item.prop" :label="item.label"
                     :width="width">
+                    
+                    <template v-slot="scope">
+                        
+                        <span :style="item.prop === 'dataPermission' ? { background: scope.row.dataPermission === '全部数据权限' ? '#1AB394' : '#1C84C6', color: '#fff', fontSize: '14px', borderRadius: '65px', padding: '3px' } : {}" v-if="item.prop === 'dataPermission'">
+                            {{ scope.row[item.prop] }}
+                        </span>
+                        <!-- 添加状态按钮 -->
+
+                        <div v-if="item.prop === 'status'">
+      
+                            <el-switch v-model="scope.row.status" />
+                        </div>
+                    </template>
+
+
                 </el-table-column>
 
                 <el-table-column label="操作" v-if="controls === 'edit'" fixed="right" width="100px">
