@@ -28,7 +28,7 @@
             <div style="margin-top: -10px;vertical-align: middle;margin-right:15px;">
                 <el-dropdown style="margin-top: 7px;margin-right: 10px;" >
                     <el-badge value="10">
-                        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" :size="30"></el-avatar>
+                        <el-avatar src="https://picsum.photos/200/300" :size="30"></el-avatar>
                     </el-badge>
 
 

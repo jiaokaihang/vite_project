@@ -2,6 +2,6 @@
 
 export default {
     title:'馆陶黑小麦', //项目标题
-    logo:'/logo.png', //项目logo
+    logo:`https://picsum.photos/200/300`, //项目logo
     logoHidden:true //logo组件是否隐藏
 }
