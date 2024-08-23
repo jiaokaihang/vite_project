@@ -18,6 +18,9 @@
     "echarts": "^5.5.1",
     "element-plus": "^2.7.7",
     "pinia": "^2.1.7",
+    "relation-graph-vue3": "^2.2.3",
+    "three": "^0.167.1",
+    "three-orbit-controls": "^82.1.0",
     "vue": "^3.4.31",
     "vue-router": "^4.4.0"
   },

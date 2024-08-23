@@ -1,11 +1,11 @@
 export const SET_TOKEN = (token) => {
-    return localStorage.setItem('TOKEN', token)
+    return sessionStorage.setItem('TOKEN', token)
 }
 
 export const GET_TOKEN = () => {
-    return localStorage.getItem('TOKEN')
+    return sessionStorage.getItem('TOKEN')
 }
 
 export const DELETE_TOKEN = () => {
-    return localStorage.removeItem('TOKEN')
+    return sessionStorage.removeItem('TOKEN')
 }

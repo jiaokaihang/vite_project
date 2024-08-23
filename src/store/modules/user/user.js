@@ -14,7 +14,7 @@ export const useUser = defineStore("user", {
       userName: "段红运",
       list: "退出",
       isCollapse:false,
-      token:localStorage.getItem('TOKEN'),
+      token:sessionStorage.getItem('TOKEN'),
 
     };
   },
@@ -40,11 +40,11 @@ export const useUser = defineStore("user", {
     loginUser(data){
       console.log(data)
     if(data.username === 'admin' && data.password === '123456'){
-
+      sessionStorage.setItem('TOKEN',result.data.token)
       return Promise.resolve(true)
        // this.token= result.data.token
     //   数据持久化
-    //   localStorage.setItem('TOKEN',result.data.token)
+     
     }else{
       return Promise.reject(new Error('用户名或密码错误'))
     }

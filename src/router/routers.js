@@ -96,6 +96,18 @@ export const constantRouter = [
                     icon: 'Grid',
                     needLogin:true
                 },
+            },
+         
+            {
+                path: '/structure',
+                component: () => import('@/views/acl/structure/index.vue'),
+                name: 'Structure',
+                meta: {
+                    title: "组织架构",
+                    hidden: false,
+                    icon: 'Share',
+                    needLogin:true
+                },
             }
         ]
     },

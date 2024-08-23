@@ -10,7 +10,7 @@
                 <!-- <Menu :menuList="userStore.menuRouters"></Menu> -->
                 <el-menu :collapse="isCollapse" active-text-color="#ffd04b" background-color="#242424"
                     class="el-menu-vertical-demo" :default-active="onRoutes" text-color="#fff" :router="true"
-                    :unique-opened="true" :collapse-transition="true">
+                    :unique-opened="true" :collapse-transition="true" >
                     <MenuTree :menuList="userStore.menuRouters"></MenuTree>
                 </el-menu>
 
@@ -99,10 +99,13 @@ const removeTab = (targetName) => {
 const clickBtn = (tab) => {
     router.push({ name: tab.props.name })
 }
+function handelChange(value){
+    console.log(value);
+}
 
-onMounted(() => { // 每次刷新之后，默认显示首页
-    router.push({ name: 'Home' });
-}); 
+// onMounted(() => { // 每次刷新之后，默认显示首页
+//     router.push({ name: 'Home' });
+// }); 
 
 watch(route, (newVal) => {
     const exists = editableTabs.value.some(tab => tab.name === newVal.name)

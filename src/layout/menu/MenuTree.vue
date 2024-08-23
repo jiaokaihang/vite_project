@@ -2,7 +2,6 @@
 
 const props = defineProps(['menuList'])
 
-
 </script>
 
 
@@ -13,7 +12,7 @@ const props = defineProps(['menuList'])
       <!--      没有子菜单-->
       <template v-if="!item.children">
         <!--             {{ item.children.title }}-->
-        <el-menu-item :index="item.path" v-if="!item.meta.hidden">
+        <el-menu-item :index="item.path" v-if="!item.meta.hidden"  >
           <el-icon>
             <component :is="item.meta.icon" />
           </el-icon>
