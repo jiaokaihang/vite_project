@@ -1,61 +1,65 @@
 // 进行axios的二次的封装：使用请求和响应拦截器
 
-import axios from 'axios'
-import { ElMessage } from 'element-plus'
-// 第一步：利用axios对象的create方法，去创建axios实例（可以进行一些配置）
-let request = axios.create({
-    // 基础路径
-    baseURL: import.meta.env.VITE_APP_BASE_API,
-    // 超时时间
-    timeout: 5000,
-})
-// 第二部：request实例天剑请求和响应拦截器
+import axios from "axios";
+import { ElMessage, ElMessageBox } from "element-plus";
+import { GET_TOKEN } from "./token";
+// 配置新建一个 axios 实例
+const request = axios.create({
+  // baseURL:
+  // "https://www.fastmock.site/mock/eb1446348d2adadbf25368aba4e89e31/api",
+  baseURL: import.meta.env.VITE_API_URL,
+  timeout: 50000,
+});
+console.log(import.meta.env.VITE_API_URL);
 
-request.interceptors.request.use((config) => {
-    // config对象，headears属性请求头，经常给服务器端携带公共参数
-
-    // 返回配置对象
-    return config
-})
-
-// 第三部：响应拦截器
-request.interceptors.response.use((response) => {
-    // 成功回调
-    // 简化数据
-    return response.data
-}, (e) => {
-    // 失败回调，处理http网络失败错误
-    console.log(e);
-    // 定义一个变量存储网络错误信息
-    let message = ''
-    let status = e.response.status
-
-    switch (status) {
-        case 201:
-            message = '账号密码错误'
-            break;
-        case 401:
-            message = 'TOKEN过期'
-            break;
-        case 403:
-            message = '无权访问'
-            break;
-        case 404:
-            message = '请求地址错误'
-            break;
-        case 500:
-            message = '服务器出现问题'
-            break;
-        default:
-            message = '网络出现问题'
-            break;
+// 添加请求拦截器
+request.interceptors.request.use(
+  (config) => {
+    // 在发送请求之前做些什么 token
+    if (GET_TOKEN("token")) {
+      config.headers.common["token"] = `${GET_TOKEN("token")}`;
     }
-    // 提示错误信息
-    ElMessage({
-        type: "error",
-        message
-    })
-    return Promise.reject(e)
-})
+    return config;
+  },
+  (error) => {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+  }
+);
 
-export default request
+// 添加响应拦截器
+request.interceptors.response.use(
+  (response) => {
+    // 对响应数据做点什么
+    const res = response.data;
+    if (res.code && res.code !== "2000") {
+      // `token` 过期或者账号已在别处登录
+      if (res.code === 401 || res.code === "4001") {
+        Session.clear(); // 清除浏览器全部临时缓存
+        window.location.href = "/"; // 去登录页
+        ElMessageBox.alert("你已被登出，请重新登录", "提示", {})
+          .then(() => {})
+          .catch(() => {});
+      }
+      return response.data;
+      // return Promise.reject(request.interceptors.response);
+    } else {
+      return response.data;
+    }
+  },
+  (error) => {
+    // 对响应错误做点什么
+    if (error.message.indexOf("timeout") != -1) {
+      ElMessage.error("网络超时");
+    } else if (error.message == "Network Error") {
+      ElMessage.error("网络连接错误");
+    } else {
+      if (error.response.data) ElMessage.error(error.response.statusText);
+      else ElMessage.error("接口路径找不到");
+    }
+    return Promise.reject(error);
+  }
+);
+
+// 导出 axios 实例
+export default request;

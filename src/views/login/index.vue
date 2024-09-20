@@ -27,8 +27,7 @@ import { reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
-import {getTime} from '../../utils/time'
-import {SET_TOKEN} from '@/utils/token'
+import { getTime } from '../../utils/time'
 //获取路由器
 let $router = useRouter()
 // 引入用户相关的小仓库
@@ -58,15 +57,15 @@ async function login() {
     }
     console.log('data', data);
     // 点击登录按钮之后干什么
-   
+
     // 请求成功
     // 请求失败 
 
     try {
-         // 通知仓库发登录请求
+        // 通知仓库发登录请求
         await userStore.userLogin(data)
-        // 登录成功
-        // 跳转到首页
+        // // 登录成功
+        // // 跳转到首页
         $router.push('/')
         // 提示用户
         ElNotification({
@@ -87,7 +86,7 @@ async function login() {
     // if(loginForm.username == 'admin' && loginForm.password=='admin123'){
     //     SET_TOKEN('12345678')
     //     $router.push('/')
-        
+
     //     ElNotification({
     //         type: "success",
     //         message: "欢迎回来",
