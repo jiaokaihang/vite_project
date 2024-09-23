@@ -7,17 +7,21 @@ import { GET_TOKEN } from "./token";
 const request = axios.create({
   // baseURL:
   // "https://www.fastmock.site/mock/eb1446348d2adadbf25368aba4e89e31/api",
-  baseURL: import.meta.env.VITE_API_URL,
+  // baseURL: import.meta.env.VITE_API_URL,
+  baseURL: "/api",
   timeout: 50000,
 });
-console.log(import.meta.env.VITE_API_URL);
+// console.log(import.meta.env.VITE_API_URL);
 
 // 添加请求拦截器
 request.interceptors.request.use(
   (config) => {
+    const token = GET_TOKEN("token");
     // 在发送请求之前做些什么 token
-    if (GET_TOKEN("token")) {
-      config.headers.common["token"] = `${GET_TOKEN("token")}`;
+    if (token) {
+      console.log("token", token);
+      // config.headers.common["token"] = `${GET_TOKEN("token")}`;
+      config.headers["token"] = token;
     }
     return config;
   },
@@ -54,6 +58,7 @@ request.interceptors.response.use(
     } else if (error.message == "Network Error") {
       ElMessage.error("网络连接错误");
     } else {
+      console.log(error);
       if (error.response.data) ElMessage.error(error.response.statusText);
       else ElMessage.error("接口路径找不到");
     }

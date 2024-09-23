@@ -24,20 +24,28 @@ let useUserStore = defineStore("User", {
   actions: {
     // 用户登录的方法
     async userLogin(data) {
-      let result = await reqLogin(data);
+      console.log(data);
+      let result = await reqLogin();
+      // let result = await reqLogin(data);
       console.log("获取的数据", result);
-      if (result.code == 200) {
+      // if (result.code == 200) {
+      // ElMessage.success("登录成功");
+      // this.token = result.data.user.token;
+      if (result.info.username == "admin" && result.info.password == "123456") {
         ElMessage.success("登录成功");
-        this.token = result.data.user.token;
-
+        this.token = result.info.token;
         // 本地存储持久化存储
-        SET_TOKEN(result.data.user.token);
-
-        // 能保证当前async函数返回一个成功的promise
+        SET_TOKEN(result.info.token);
         return "ok";
       } else {
-        return Promise.reject(new Error(result.data.message));
+        ElMessage.error("用户名或密码错误");
+        return;
       }
+
+      // 能保证当前async函数返回一个成功的promise
+      // } else {
+      //   return Promise.reject(new Error(result.data.message));
+      // }
     },
 
     // 根据侧边栏冬天生成tabs

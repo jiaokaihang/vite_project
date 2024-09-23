@@ -29,14 +29,10 @@ export default defineConfig(({ command }) => {
       proxy: {
         "/api": {
           // port: "5173",
-          target:
-            "https://www.fastmock.site/mock/eb1446348d2adadbf25368aba4e89e31/api", // 替换为你的后端服务地址
+          target: "http://localhost:3009", // 替换为你的后端服务地址
           changeOrigin: true, // 允许跨域
           ws: true,
-          // rewrite: (path) => path.replace(/^\/api/, ""), // 重写路径，根据需要配置
-          pathRewrite: {
-            "^/api": "", // 将/api替换为空字符串
-          },
+          rewrite: (path) => path.replace(/^\/api/, "/"), // 重写路径，根据需要配置
         },
       },
     },

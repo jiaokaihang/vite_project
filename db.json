@@ -1,0 +1,106 @@
+{
+  "login": {
+    "code": 200,
+    "info": {
+      "username": "admin",
+      "password": "123456",
+      "token": "6DE582FD152C78HJ98989KKL"
+    }
+  },
+  "createUserList": [
+    {
+      "id": "be3d",
+      "name": "红红",
+      "username": "测试1",
+      "phone": "1231234324",
+      "address": "3242422342@qq.com"
+    },
+    {
+      "id": "7118",
+      "name": "段段",
+      "username": "测试2",
+      "phone": "1232132131",
+      "address": "231wer@qq.com"
+    },
+    {
+      "id": "a2e7",
+      "name": "红红",
+      "username": "测试3",
+      "phone": "12312312313",
+      "address": "3243242qw@qq.com"
+    },
+    {
+      "id": "a2r7",
+      "name": "运运",
+      "username": "测试4",
+      "phone": "1244312312",
+      "address": "2131242qw@qq.com"
+    },
+    {
+      "id": "629f",
+      "name": "焦焦",
+      "username": "测试5",
+      "phone": "123123123112",
+      "address": "20202020209@qq.com"
+    },
+    {
+      "id": "5c8f",
+      "name": "凯凯",
+      "username": "测试6",
+      "phone": "123123123",
+      "address": "12312312312@qq.com"
+    },
+    {
+      "id": "aefb",
+      "name": "丢丢",
+      "username": "测试7",
+      "phone": "12312312",
+      "address": "123123123@qq.com"
+    },
+    {
+      "id": "ba25",
+      "name": "豆豆",
+      "username": "测试8",
+      "phone": "123123123123",
+      "address": "1232131ee'@qq.com"
+    },
+    {
+      "id": "d375",
+      "name": "胖胖",
+      "username": "测试9",
+      "phone": "123123213242",
+      "address": "2034509098@qq.com"
+    },
+    {
+      "id": "a4d1",
+      "name": "嘎嘎",
+      "username": "测试11",
+      "phone": "123123131231",
+      "address": "124312312313@qq.com"
+    },
+    {
+      "id": "fc75",
+      "name": "拉拉",
+      "username": "测试11",
+      "phone": "12312312312",
+      "address": "2096863384@qq.com"
+    },
+    {
+      "id": "9885",
+      "name": "sdasa",
+      "username": "qweqw",
+      "phone": "sda",
+      "address": "asda"
+    }
+  ],
+  "RoleLists": [
+    {
+      "id": "fd4b",
+      "userName": "刘渠阳",
+      "dataPermission": "全部数据权限",
+      "shunxu": "1",
+      "status": false,
+      "permission": "admin"
+    }
+  ]
+}

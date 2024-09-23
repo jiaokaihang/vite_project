@@ -12,11 +12,10 @@ const API = {
 // export const reqLogin = (data) => request.post(API.LOGIN_API, data)
 
 export const reqLogin = (params) => {
-  console.log("数据", params);
   return request({
-    url: "/api/user/login",
-    // url: "/login",
-    method: "POST",
-    data: params,
+    // url: "/api/user/login",
+    url: "/login",
+    method: "get",
+    // data: params,
   });
 };

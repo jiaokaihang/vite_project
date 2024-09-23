@@ -1,68 +1,73 @@
 <template>
-    <div>
-        <el-card>
-             <BasicForm :list="list" @query="query"/>
-        </el-card>
-        <el-card class="box-card" style="margin-top: 15px;height: 68vh" >
+  <div>
+    <el-card>
+      <BasicForm :list="list" @query="query" />
+    </el-card>
+    <el-card class="box-card" style="margin-top: 15px;height: 68vh">
       <div style="margin-bottom: 10px">
-        <el-button type="primary" icon="Plus">新增</el-button>
+        <el-button type="primary" icon="Plus" @click="handelClick">新增</el-button>
         <el-button type="success" icon="Edit" :disabled="disableEdit">修改</el-button>
         <el-button type="danger" icon="CloseBold" :disabled="disableDelete" @click="handelPiliangDelete">批量删除</el-button>
-        <el-button  type="info" icon="Upload">导入</el-button>
+        <el-button type="info" icon="Upload">导入</el-button>
         <el-button type="warning" icon="Download">导出</el-button>
       </div>
       <div>
         <suspense>
           <template v-slot:default>
-            <BasicTable v-loading="loading" element-loading-text="数据正在加载中..."  element-loading-background="rgba(122, 122, 122, 0.8)" :colum="colunm" :tableData="tableData" :pagesize="pagesize" :currpage="currpage" :selections="selection"
-                        :totalRows="totalRows" :totalPage="totalPage" @MultipleChoice="MultipleChoice" @RadioChoice="RadioChoice" :controls="controls"
-                        @updateTalk="handelChuliEdit" @handelViewDetails="handelViewDetails" @selectTalkDelete="selectTalkDelete">
+            <BasicTable v-loading="loading" element-loading-text="数据正在加载中..."
+              element-loading-background="rgba(122, 122, 122, 0.8)" :colum="colunm" :tableData="tableData"
+              :pagesize="pagesize" :currpage="currpage" :selections="selection" :totalRows="totalRows"
+              :totalPage="totalPage" @MultipleChoice="MultipleChoice" @RadioChoice="RadioChoice" :controls="controls"
+              @updateTalk="handelChuliEdit" @handelViewDetails="handelViewDetails" @selectTalkDelete="selectTalkDelete">
             </BasicTable>
           </template>
         </suspense>
       </div>
     </el-card>
-    </div>
+    <RoleList :dialogFormVisible="dialogFormVisible" :dialogTitle="dialogTitle" @handelXinzeng="handelXinzeng"
+      :editForm="editForm" @handelCloseDialog="handelClose" @handelEditSuccess="handelEdit"></RoleList>
+  </div>
 </template>
 <script setup>
-import {onMounted, ref,defineAsyncComponent} from 'vue'
+import { onMounted, ref, defineAsyncComponent } from 'vue'
+import RoleList from './RoleList.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import BasicForm from '@/components/basicForm/BasicForm.vue'
-import {reqGetRoleList} from '@/api/acl/rolelist'
+import { reqGetRoleList, reqCreateRoleList, reqDeleteRoleList, reqUpdateRoleList } from '@/api/acl/rolelist'
 const list = ref([
-    {
-        type:'input',
-        title:'角色名称',
-        value:''
-    },
-    {
-        type:'input',
-        title:'权限字符',
-        value:""
-    },
-    {
-        type:"select",
-        title:'角色状态',
-        value:"",
-        options: [{ value: "所有" },{ value: "开启" }, { value: "关闭" }],
-    },
-    {
+  {
+    type: 'input',
+    title: '角色名称',
+    value: ''
+  },
+  {
+    type: 'input',
+    title: '权限字符',
+    value: ""
+  },
+  {
+    type: "select",
+    title: '角色状态',
+    value: "",
+    options: [{ value: "所有" }, { value: "开启" }, { value: "关闭" }],
+  },
+  {
     type: "datePicker",
     title: "创建时间",
     value: "",
     width: 200,
   },
 
-  
+
 ])
 
-const BasicTable = defineAsyncComponent(()=>{
+const BasicTable = defineAsyncComponent(() => {
   return import('@/components/basicTable/BasicTable.vue')
 })
 
-function query(value){
-  console.log('查询数据',value)
-  
+function query(value) {
+  console.log('查询数据', value)
+
   tableData.value = tableData.value.filter(item => item.phone.includes(value));
   return tableData;
 }
@@ -72,12 +77,12 @@ function query(value){
 /**
  * @param '下面是表格的数据'
  */
-const tableDatas =ref(
-    [
-    
+const tableDatas = ref(
+  [
 
 
-    ]
+
+  ]
 )
 
 const colunm = ref([
@@ -100,32 +105,35 @@ const controls = ref("editProcessCenter") //操作:编辑
 const MultipleSelectChoisce = ref([])
 
 const loading = ref(true)
-onMounted( async()=>{
-  
-   try {
+async function getRoleList() {
+  try {
 
- 
+
     const res = await reqGetRoleList()
-     tableData.value = res.data
-     loading.value = false
-   }catch (e) {
-     console.log(e)
-   }
-    totalRows.value = tableData.value.length
+    tableData.value = res
+    loading.value = false
+  } catch (e) {
+    console.log(e)
+  }
+  totalRows.value = tableData.value.length
+}
+onMounted(() => {
+
+  getRoleList()
 
 
 })
 function MultipleChoice(value) {
   MultipleSelectChoisce.value = value
-  if(MultipleSelectChoisce.value.length !== 1){
+  if (MultipleSelectChoisce.value.length !== 1) {
     disableEdit.value = true
-  }else {
+  } else {
     disableEdit.value = false
   }
 
-  if(MultipleSelectChoisce.value.length){
+  if (MultipleSelectChoisce.value.length) {
     disableDelete.value = false
-  }else {
+  } else {
     disableDelete.value = true
   }
 
@@ -135,11 +143,7 @@ function MultipleChoice(value) {
 function RadioChoice(value) {
   console.log(value)
 }
-// 修改
-function handelChuliEdit(index, row) {
-  console.log('修改+', index)
-  console.log('修改+', row)
-}
+
 //详情
 function handelViewDetails(index, row) {
   console.log('详情+', index)
@@ -151,29 +155,33 @@ function selectTalkDelete(index, row) {
   console.log('删除+', index)
   console.log('删除+', row)
   ElMessageBox.confirm(
-      '你确定要删除这条数据吗?',
-      '提示',
-      {
-        confirmButtonText: '确认',
-        cancelButtonText: '关闭',
-        type: 'warning',
-      }
+    '你确定要删除这条数据吗?',
+    '提示',
+    {
+      confirmButtonText: '确认',
+      cancelButtonText: '关闭',
+      type: 'warning',
+    }
   )
-      .then(() => {
+    .then(() => {
 
-          tableData.value = tableData.value.filter((d)=>d.id !== row.id)
-
+      tableData.value = tableData.value.filter((d) => d.id !== row.id)
+      reqDeleteRoleList({ id: row.id }).then(res => {
         ElMessage({
           type: 'success',
           message: '删除成功',
         })
+        getRoleList()
+      }
+      )
+
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: '取消删除',
       })
-      .catch(() => {
-        ElMessage({
-          type: 'info',
-          message: '取消删除',
-        })
-      })
+    })
 
 
 }
@@ -187,38 +195,99 @@ const disableEdit = ref(true)
 const disableDelete = ref(true)
 
 // 批量删除
-function  handelPiliangDelete (){
+function handelPiliangDelete() {
   ElMessageBox.confirm(
-      '你确定要删除这条消息吗?',
-      '提示',
-      {
-        confirmButtonText: '确认',
-        cancelButtonText: '关闭',
-        type: 'warning',
-      }
+    '你确定要删除这条消息吗?',
+    '提示',
+    {
+      confirmButtonText: '确认',
+      cancelButtonText: '关闭',
+      type: 'warning',
+    }
   )
-      .then(() => {
-        MultipleSelectChoisce.value.forEach(item=>{
-          tableData.value = tableData.value.filter((d)=>d.id !== item.id)
-        })
-        ElMessage({
-          type: 'success',
-          message: '删除成功',
+    .then(() => {
+      MultipleSelectChoisce.value.forEach(item => {
+        tableData.value = tableData.value.filter((d) => d.id !== item.id)
+        reqDeleteRoleList({ id: item.id }).then(res => {
+
         })
       })
-      .catch(() => {
-        ElMessage({
-          type: 'info',
-          message: '取消删除',
-        })
+      ElMessage({
+        type: 'success',
+        message: '删除成功',
       })
+      getRoleList()
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: '取消删除',
+      })
+    })
 
 }
 
+/**
+ * @params 新增
+ *
+ */
 
+const dialogFormVisible = ref(false)
+const dialogTitle = ref('')
+const editForm = ref(null)
+function handelClick() {
+  dialogFormVisible.value = true
+  dialogTitle.value = '新增'
+}
 
+async function handelXinzeng(data) {
+  const res = await reqCreateRoleList(data)
+
+  try {
+    ElMessage({
+      message: '添加成功',
+      type: 'success',
+    })
+
+    dialogFormVisible.value = false
+    getRoleList()
+  } catch (error) {
+
+  }
+}
+// 修改
+function handelChuliEdit(index, row) {
+  console.log('修改+', index)
+  console.log('修改+', row)
+  dialogFormVisible.value = true
+  dialogTitle.value = '修改'
+  editForm.value = row
+}
+
+// 点击关闭
+function handelClose() {
+  dialogFormVisible.value = false
+  ElMessage({
+    type: 'info',
+    message: '已取消',
+  })
+}
+
+// 确认修改
+function handelEdit(ids, data) {
+  // console.log('修改', editForm.value)
+  reqUpdateRoleList(ids, data).then(res => {
+    ElMessage({
+      message: '修改成功',
+      type: 'success',
+    })
+    dialogFormVisible.value = false
+    getRoleList()
+  })
+}
 </script>
 <style>
-.el-loading-spinner{
+.el-loading-spinner {
   margin-top: calc((60vh - var(--el-loading-spinner-size)) /2);
-}</style>
+}
+</style>
