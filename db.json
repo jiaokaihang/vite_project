@@ -100,7 +100,81 @@
       "dataPermission": "全部数据权限",
       "shunxu": "1",
       "status": false,
+      "permission": "common"
+    },
+    {
+      "id": "b9a3",
+      "userName": "段红运",
+      "dataPermission": "全部数据权限",
+      "shunxu": "1",
+      "status": true,
       "permission": "admin"
+    },
+    {
+      "id": "96e5",
+      "userName": "疯狂的码农",
+      "dataPermission": "部分数据权限",
+      "shunxu": "2",
+      "status": true,
+      "permission": "admin"
+    }
+  ],
+  "accountList": [
+    {
+      "id": "4285",
+      "zhanghu": "短暂失忆的小段",
+      "zhanghuName": "小段",
+      "phone": "15633908169",
+      "status": true,
+      "role": "commn"
+    },
+    {
+      "id": "ab46",
+      "zhanghu": "2",
+      "zhanghuName": "2",
+      "phone": "2",
+      "status": false,
+      "role": "2"
+    },
+    {
+      "id": "0181",
+      "zhanghu": "4",
+      "zhanghuName": "4",
+      "phone": "4",
+      "status": false,
+      "role": "4"
+    },
+    {
+      "id": "3c66",
+      "zhanghu": "231",
+      "zhanghuName": "231",
+      "phone": "231",
+      "status": false,
+      "role": "23q31231"
+    },
+    {
+      "id": "b9ce",
+      "zhanghu": "1231",
+      "zhanghuName": "2312",
+      "phone": "3131",
+      "status": false,
+      "role": "23"
+    },
+    {
+      "id": "235e",
+      "zhanghu": "11",
+      "zhanghuName": "1",
+      "phone": "1",
+      "status": false,
+      "role": "1"
+    },
+    {
+      "id": "4151",
+      "zhanghu": "12",
+      "zhanghuName": "21",
+      "phone": "1",
+      "status": false,
+      "role": "212"
     }
   ]
 }

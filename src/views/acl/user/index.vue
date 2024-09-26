@@ -25,6 +25,7 @@
           </template>
         </suspense>
       </div>
+      <el-empty v-if="!tableData.length" description="暂无数据"></el-empty>
     </el-card>
     <ImportXinzeng :dialogFormVisible="dialogFormVisible" @handelCloseDialog="handelCloseDialog"
       @handelXinzeng="handelAddUser" :dialogTitle="dialogTitle" :editForm="editForm" @handelEditSuccess="handelEdit">
@@ -45,25 +46,7 @@ const list = ref([
     value: "",
     // width: 300,
   },
-  {
-    type: "input",
-    title: "手机号码",
-    value: "",
-    // width: 300,
-  },
-  {
-    type: "select",
-    title: "用户状态",
-    value: "",
-    options: [{ value: "所有" }, { value: "开启" }, { value: "关闭" }],
-    width: 200,
-  },
-  {
-    type: "datePicker",
-    title: "创建时间",
-    value: "",
-    width: 200,
-  },
+
 ])
 
 // const BasicTable = defineAsyncComponent(()=>import('@/componts/basicTable/BasicTable.vue'))
@@ -72,11 +55,18 @@ const BasicTable = defineAsyncComponent(() => {
   return import('@/components/basicTable/BasicTable.vue')
 })
 
-function query(value) {
+async function query(value) {
   // console.log('查询数据', value)
+  // const res = await reqQueryAccountList(list.value[0].value)
+  if (list.value[0].value) {
+    tableData.value = tableData.value.filter(item => item.username.includes(list.value[0].value));
+    totalRows.value = tableData.value.length
 
-  tableData.value = tableData.value.filter(item => item.phone.includes(value));
-  return tableData;
+    return tableData.value;
+  } else {
+    getUserList()
+  }
+
 }
 
 

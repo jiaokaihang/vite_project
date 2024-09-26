@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <BasicForm :list="list" @query="query" />
+      <BasicForm :list="list" @query="query" @queryTableData="query" />
     </el-card>
     <el-card class="box-card" style="margin-top: 15px;height: 68vh">
       <div style="margin-bottom: 10px">
@@ -23,6 +23,7 @@
           </template>
         </suspense>
       </div>
+      <el-empty v-if="!tableData.length" description="暂无数据"></el-empty>
     </el-card>
     <RoleList :dialogFormVisible="dialogFormVisible" :dialogTitle="dialogTitle" @handelXinzeng="handelXinzeng"
       :editForm="editForm" @handelCloseDialog="handelClose" @handelEditSuccess="handelEdit"></RoleList>
@@ -40,23 +41,7 @@ const list = ref([
     title: '角色名称',
     value: ''
   },
-  {
-    type: 'input',
-    title: '权限字符',
-    value: ""
-  },
-  {
-    type: "select",
-    title: '角色状态',
-    value: "",
-    options: [{ value: "所有" }, { value: "开启" }, { value: "关闭" }],
-  },
-  {
-    type: "datePicker",
-    title: "创建时间",
-    value: "",
-    width: 200,
-  },
+
 
 
 ])
@@ -65,13 +50,19 @@ const BasicTable = defineAsyncComponent(() => {
   return import('@/components/basicTable/BasicTable.vue')
 })
 
-function query(value) {
-  console.log('查询数据', value)
+async function query(value) {
+  // console.log('查询数据', value)
+  // const res = await reqQueryAccountList(list.value[0].value)
+  if (list.value[0].value) {
+    tableData.value = tableData.value.filter(item => item.userName.includes(list.value[0].value));
+    totalRows.value = tableData.value.length
 
-  tableData.value = tableData.value.filter(item => item.phone.includes(value));
-  return tableData;
+    return tableData.value;
+  } else {
+    getRoleList()
+  }
+
 }
-
 
 
 /**
@@ -79,9 +70,6 @@ function query(value) {
  */
 const tableDatas = ref(
   [
-
-
-
   ]
 )
 
@@ -107,8 +95,6 @@ const MultipleSelectChoisce = ref([])
 const loading = ref(true)
 async function getRoleList() {
   try {
-
-
     const res = await reqGetRoleList()
     tableData.value = res
     loading.value = false

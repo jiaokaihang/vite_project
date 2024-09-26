@@ -19,7 +19,7 @@ request.interceptors.request.use(
     const token = GET_TOKEN("token");
     // 在发送请求之前做些什么 token
     if (token) {
-      console.log("token", token);
+      // console.log("token", token);
       // config.headers.common["token"] = `${GET_TOKEN("token")}`;
       config.headers["token"] = token;
     }

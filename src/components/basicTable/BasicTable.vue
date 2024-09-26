@@ -137,23 +137,25 @@ function handleEditor(index, row) {
                 <el-table-column type="index" width="80" label="序号" v-if="xuhao">
                     <template v-slot="scope">
                         <span style="color: rgba(0, 0, 0, 0.9)">{{
-            (newCurrpage - 1) * newPageSize + scope.$index + 1
-        }}</span>
+                            (newCurrpage - 1) * newPageSize + scope.$index + 1
+                        }}</span>
                     </template>
                 </el-table-column>
 
                 <el-table-column v-for="(item, index) in colum" :key="index" :prop="item.prop" :label="item.label"
                     :width="width">
-                    
+
                     <template v-slot="scope">
-                        
-                        <span :style="item.prop === 'dataPermission' ? { background: scope.row.dataPermission === '全部数据权限' ? '#1AB394' : '#1C84C6', color: '#fff', fontSize: '14px', borderRadius: '65px', padding: '3px' } : {}" v-if="item.prop === 'dataPermission'">
+
+                        <span
+                            :style="item.prop === 'dataPermission' ? { background: scope.row.dataPermission === '全部数据权限' ? '#1AB394' : '#1C84C6', color: '#fff', fontSize: '14px', borderRadius: '65px', padding: '3px' } : {}"
+                            v-if="item.prop === 'dataPermission'">
                             {{ scope.row[item.prop] }}
                         </span>
                         <!-- 添加状态按钮 -->
 
                         <div v-if="item.prop === 'status'">
-      
+
                             <el-switch v-model="scope.row.status" />
                         </div>
                     </template>
