@@ -177,6 +177,14 @@ function handleEditor(index, row) {
 
                     </template>
                 </el-table-column>
+                <el-table-column label="操作" v-if="controls === 'editAccount'" fixed="right" width="150px">
+                    <template v-slot="scope">
+                        <span class="cursor" @click="handleEdit(scope.$index, scope.row)">修改</span>
+                        <span class="cursor" @click="handelDetails(scope.$index, scope.row)">启/禁用</span>
+                        <span class="cursor" ref="delete" @click="handleDelete(scope.$index, scope.row)">删除</span>
+
+                    </template>
+                </el-table-column>
                 <el-table-column label="操作" v-else-if="controls === 'compute'">
                     <template v-slot="scope">
                         <span class="cursor" @click="handleEdit(scope.$index, scope.row)">计算</span>

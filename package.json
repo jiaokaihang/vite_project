@@ -17,6 +17,7 @@
     "axios": "^1.7.2",
     "echarts": "^5.5.1",
     "element-plus": "^2.7.7",
+    "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "relation-graph-vue3": "^2.2.3",
     "three": "^0.167.1",

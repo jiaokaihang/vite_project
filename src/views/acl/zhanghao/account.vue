@@ -1,7 +1,8 @@
 <template>
     <div>
         <el-card class="box-card">
-            <BasicForm :list='list' @query="query" @queryTableData="query"></BasicForm>
+            <BasicForm :list='list' @query="query"></BasicForm>
+            <!-- <BasicForm :list='list' @query="query" @queryTableData="query"></BasicForm> -->
         </el-card>
 
         <el-card class="box-card" style="margin-top: 15px;height: 68vh">
@@ -70,7 +71,7 @@ const pagesize = ref(10)
 const totalRows = ref(10)
 const totalPage = ref(2)
 const selection = ref(true) //多选
-const controls = ref("editProcessCenter") //操作:编辑
+const controls = ref("editAccount") //操作:编辑
 const MultipleSelectChoisce = ref([])
 const disableEdit = ref(true)
 const disableDelete = ref(true)
@@ -155,12 +156,39 @@ function handelClose(data) {
     }
 }
 /**
- * @function: 详情
+ * @function: 禁用
 */
 
 function handelViewDetails(index, row) {
 
-    console.log('详情', index, row)
+    console.log('禁用', index, row)
+
+    ElMessageBox.alert('确认启/禁用该帐号吗?', '提示', {
+        // if you want to disable its autofocus
+        // autofocus: false,
+        confirmButtonText: 'OK',
+        callback: (action) => {
+            row.status = !row.status
+            reqEditAccountList({ id: row.id }, row).then(res => {
+                if (row.status == false) {
+                    ElMessage({
+                        type: 'success',
+                        message: '禁用成功',
+                    })
+                } else {
+                    ElMessage({
+                        type: 'success',
+                        message: '启用成功',
+                    })
+                }
+                getAccountList()
+            })
+            // ElMessage({
+            //     type: 'info',
+            //     message: `action: ${action}`,
+            // })
+        },
+    })
 
 }
 
@@ -222,13 +250,15 @@ function handelPiliangDelete() {
             MultipleSelectChoisce.value.forEach(item => {
                 tableData.value = tableData.value.filter((d) => d.id !== item.id)
                 reqDeleteAccountList({ id: item.id }).then(res => {
-                    ElMessage({
-                        type: 'success',
-                        message: '删除成功',
-                    })
-                    getAccountList()
+
                 })
+
             })
+            ElMessage({
+                type: 'success',
+                message: '删除成功',
+            })
+            getAccountList()
 
         })
         .catch(() => {

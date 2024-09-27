@@ -35,7 +35,8 @@ function onReset() {
         return obj;
     }, {});
     resetData.value = props.list.map((item) => (item.value = ""));
-    emit("queryTableData", formData);
+    emit("query", formData);
+    // emit("queryTableData", formData);
 }
 
 function handelChange(e) {
@@ -101,9 +102,9 @@ function blurList() {
                     <template v-else-if="item.type === 'Chuliinput'">
                         <el-input v-model="item.values" placeholder="请输入" style="width: 200px" readonly></el-input>
                     </template>
-                    <template v-else-if="item.type === 'datePicker'" >
-                        <el-date-picker style="width: 180px;margin-left: 10px;" v-model="item.value" type="date" format="YYYY-MM-DD "
-                            value-format="YYYY-MM-DD" placeholder="请选择日期" >
+                    <template v-else-if="item.type === 'datePicker'">
+                        <el-date-picker style="width: 180px;margin-left: 10px;" v-model="item.value" type="date"
+                            format="YYYY-MM-DD " value-format="YYYY-MM-DD" placeholder="请选择日期">
                         </el-date-picker>
                     </template>
                     <!-- <template v-else-if="item.type === 'datePickerChuli'">

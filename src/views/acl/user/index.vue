@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card class="box-card">
-      <BasicForm :list='list' @query="query" @queryTableData="query"></BasicForm>
+      <BasicForm :list='list' @query="query"></BasicForm>
     </el-card>
 
     <el-card class="box-card" style="margin-top: 15px;height: 68vh">

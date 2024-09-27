@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <BasicForm :list="list" @query="query" @queryTableData="query" />
+      <BasicForm :list="list" @query="query" />
     </el-card>
     <el-card class="box-card" style="margin-top: 15px;height: 68vh">
       <div style="margin-bottom: 10px">
@@ -51,9 +51,11 @@ const BasicTable = defineAsyncComponent(() => {
 })
 
 async function query(value) {
+
   // console.log('查询数据', value)
   // const res = await reqQueryAccountList(list.value[0].value)
   if (list.value[0].value) {
+    // 查询数据中是否包含此项
     tableData.value = tableData.value.filter(item => item.userName.includes(list.value[0].value));
     totalRows.value = tableData.value.length
 

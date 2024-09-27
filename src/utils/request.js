@@ -2,6 +2,10 @@
 
 import axios from "axios";
 import { ElMessage, ElMessageBox } from "element-plus";
+//引入进度条
+import nProgress from "nprogress";
+//引入进度条样式
+import "nprogress/nprogress.css";
 import { GET_TOKEN } from "./token";
 // 配置新建一个 axios 实例
 const request = axios.create({
@@ -23,6 +27,7 @@ request.interceptors.request.use(
       // config.headers.common["token"] = `${GET_TOKEN("token")}`;
       config.headers["token"] = token;
     }
+    nProgress.start();
     return config;
   },
   (error) => {
@@ -45,9 +50,11 @@ request.interceptors.response.use(
           .then(() => {})
           .catch(() => {});
       }
+      nProgress.done();
       return response.data;
       // return Promise.reject(request.interceptors.response);
     } else {
+      nProgress.done();
       return response.data;
     }
   },
@@ -62,6 +69,7 @@ request.interceptors.response.use(
       if (error.response.data) ElMessage.error(error.response.statusText);
       else ElMessage.error("接口路径找不到");
     }
+    nProgress.done();
     return Promise.reject(error);
   }
 );
